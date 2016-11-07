@@ -1,0 +1,5 @@
+<div class="row" ng-repeat="item in $ctrl.items track by $index" ng-if="$index % 3 == 0">
+  <div class="col-lg-4" ng-repeat="idx in [0,1,2]">
+    <projects-item item="$ctrl.items[idx+$parent.$index]"></projects-item>
+  </div>
+</div>

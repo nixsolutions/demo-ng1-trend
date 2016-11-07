@@ -1,0 +1,132 @@
+<div class="row">
+  <div class="col-lg-9">
+    <div class="wrapper wrapper-content">
+      <div class="ibox">
+        <div class="ibox-content">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="m-b-md">
+                <h2 ng-bind="$ctrl.item.detail.full_name"></h2>
+              </div>
+              <dl class="dl-horizontal">
+                <dt>Language:</dt> <dd><span class="label label-primary" ng-bind="$ctrl.item.detail.language"></span></dd>
+              </dl>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-5">
+              <dl class="dl-horizontal">
+                <dt>ID:</dt> <dd>{{$ctrl.item.detail.id}}</dd>
+                <dt>Created by:</dt> <dd>{{$ctrl.item.detail.owner.login}}</dd>
+                <dt>Default Branch:</dt> <dd>{{$ctrl.item.detail.default_branch}}</dd>
+                <dt>Size:</dt> <dd> {{$ctrl.item.detail.size}}</dd>
+              </dl>
+            </div>
+            <div class="col-lg-7" id="cluster_info">
+              <dl class="dl-horizontal" >
+                <dt>Created:</dt> <dd> {{$ctrl.item.detail.created_at|date:'medium'}}</dd>
+                <dt>Last Updated:</dt> <dd>{{$ctrl.item.detail.updated_at|date:'medium'}}</dd>
+                <dt>Last Pushed:</dt> <dd>{{$ctrl.item.detail.pushed_at|date:'medium'}}</dd>
+                <dt>Contributors:</dt>
+                <dd class="project-people">
+                  <a ng-href="{{contributor.html_url}}" target="_blank" ng-repeat="contributor in $ctrl.item.contributors">
+                    <img title="{{contributor.login}}" class="img-circle" ng-src="{{contributor.avatar_url}}">
+                  </a>
+                </dd>
+              </dl>
+            </div>
+          </div>
+          <div class="row m-t-sm">
+            <div class="col-lg-12">
+              <div class="panel blank-panel" ng-init="tab=0">
+                <div class="panel-heading">
+                  <div class="panel-options">
+                    <ul class="nav nav-tabs">
+                      <li ng-class="{active: tab === 0}"><a ng-click="tab=0">Events</a></li>
+                      <li ng-class="{active: tab === 1}"><a ng-click="tab=1">Issues</a></li>
+                      <li ng-class="{active: tab === 2}"><a ng-click="tab=2">Commits</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div class="tab-content">
+                    <div class="tab-pane" ng-class="{active: tab===0}">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>ID</th>
+                            <th>TYPE</th>
+                            <th>ACTOR</th>
+                            <th>DATE</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="event in $ctrl.item.events">
+                            <td ng-bind="event.id"></td>
+                            <td ng-bind="event.type"></td>
+                            <td ng-bind="event.actor.login"></td>
+                            <td ng-bind="event.created_at | date:'medium'"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="tab-pane" ng-class="{active: tab===1}">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>ID</th>
+                            <th>STATE</th>
+                            <th>TITLE</th>
+                            <th>CREATED</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="issue in $ctrl.item.issues">
+                            <td ng-bind="issue.id"></td>
+                            <td ng-bind="issue.state"></td>
+                            <td><a ng-href="{{issue.html_url}}" ng-bind="issue.title" target="_blank"></a></td>
+                            <td ng-bind="issue.created_at | date:'medium'"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="tab-pane" ng-class="{active: tab===2}">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>SHA</th>
+                            <th>AUTHOR</th>
+                            <th>MESSAGE</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="commit in $ctrl.item.commits">
+                            <td><a ng-href="{{commit.html_url}}" ng-bind="commit.sha | limitTo:10" target="_blank"></a></td>
+                            <td><a ng-href="{{commit.author.html_url}}" ng-bind="commit.commit.author.name" target="_blank"></a></td>
+                            <td ng-bind="commit.commit.message"><a ng-href="{{commit.html_url}}" ng-bind="commit.title" target="_blank"></a></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="wrapper wrapper-content project-manager">
+      <h4>Project description</h4>
+      <p class="small" ng-bind="$ctrl.item.detail.description"></p>
+      <p class="small font-bold">
+      </p>
+      <h5>Project Labels</h5>
+      <ul class="tag-list" style="padding: 0">
+        <li ng-repeat="label in $ctrl.item.labels"><button class="btn btn-sm btn-default"><i class="fa fa-tag"></i> {{label.name}}</button></li>
+      </ul>
+    </div>
+  </div>
+</div>

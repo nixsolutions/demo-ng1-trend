@@ -1,0 +1,27 @@
+<div class="ibox">
+  <div class="ibox-title">
+    <span class="label label-primary pull-right" ng-bind="$ctrl.item.language"></span>
+    <h5><a ui-sref="detail({id: $ctrl.item.full_name})" ng-bind="$ctrl.item.full_name"></a></h5>
+  </div>
+  <div class="ibox-content">
+    <div class="team-members" ng-if="$ctrl.item.owner">
+      <a ng-href="{{$ctrl.item.owner.html_url}}"><img alt="member" class="img-circle" ng-src="{{ $ctrl.item.owner.avatar_url }}"></a>
+    </div>
+    <h4 ng-bind="'Info about ' + $ctrl.item.name"></h4>
+    <p ng-bind="$ctrl.item.description"></p>
+    <div class="row  m-t-sm">
+      <div class="col-sm-3">
+        <div class="font-bold">ISSUES</div>{{ $ctrl.item.open_issues_count }}
+      </div>
+      <div class="col-sm-3">
+        <div class="font-bold">FORKS</div>{{ $ctrl.item.forks }}
+      </div>
+      <div class="col-sm-3">
+        <div class="font-bold">WATCHERS</div>{{ $ctrl.item.watchers }}
+      </div>
+      <div class="col-sm-3 text-right">
+        <div class="font-bold">STARS</div>{{ $ctrl.item.stargazers_count }}
+      </div>
+    </div>
+  </div>
+</div>
